@@ -7,7 +7,7 @@ const NoteState = (props) => {
  
   // const port=process.env.PORT||5000
   //const host = "http://localhost:5000"
-  const host="https://stickynotessbackend.herokuapp.com"
+  const host="https://stickynotessbackend.herokuapp.com/"
 
     const notesInitial = []
   const [notes, setNotes] = useState(notesInitial)
