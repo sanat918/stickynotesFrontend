@@ -24,7 +24,7 @@ const Signup = (props) => {
             // Save the auth token and redirect 
            props.showAlert("Account created Successfully","success")
            navigate('/NotesHome')
-           localStorage.setItem('token', json.authtoken); 
+           window.sessionStorage.setItem('token', json.authtoken); 
            props.showAlert("Account created Successfully","success")
         }
         else{
