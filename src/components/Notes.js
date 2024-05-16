@@ -31,12 +31,38 @@ const Notes = (props) => {
         setNote({...note, [e.target.name]: e.target.value})
     }
 
-    
     useEffect(() => {
         getNotes()
         // eslint-disable-next-line
     }, [])
- 
+   
+  
+
+    //For performing search over notes
+
+    // let [productLi,setproductLi]=useState(notes)
+    // let [preProduct,setpreProduct]=useState([])
+    let [name,setname]=useState("")
+    let ValFilter=["title","description","tag"]
+   
+    //Debouncing for InputFiled
+    function debounce(func, timeout = 300){
+        let timer;
+        return (...args) => {
+          clearTimeout(timer);
+          timer = setTimeout(() => { func.apply(this, args); }, timeout);
+        };
+      }
+
+      function saveInput(e){
+        setname(e.target.value)
+        // console.log("name")
+      }
+     
+
+      const productName = debounce((e) => saveInput(e))
+      
+
    
      if(!localStorage.getItem('auth-token'))
      {
@@ -45,6 +71,12 @@ const Notes = (props) => {
      else{
         return (
             <>
+
+                    <form className="d-flex"  >
+                     <input  type="search" placeholder="Search" aria-label="Search" onChange={productName} style={{margin:"5px",borderRadius:"10px"}} />
+                     </form>
+
+
               <Addnote showAlert={showAlert} />
                 <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Launch demo modal
@@ -86,7 +118,12 @@ const Notes = (props) => {
                     <div className="container mx-2"> 
                     {notes.length===0 && 'No notes to display'}
                     </div>
-                    {notes.map((note) => {
+                    {  notes?.filter((fl)=>{
+                    return Object.keys(fl).some(key => {
+                        return ValFilter?.includes(key) ? fl[key].toString().includes(name) : false
+                      })
+                }
+                  ).map((note) => {
                         return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert={showAlert}/>
                     })}
                 </div>

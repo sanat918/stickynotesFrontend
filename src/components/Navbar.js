@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect,useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useNavigate} from 'react-router-dom';
 
@@ -6,11 +6,14 @@ import { Link, useNavigate} from 'react-router-dom';
 
 function Navbar(props) {
   const {showAlert}=props
-    
+
+
+
+
+
     useEffect(()=>{
 
     },[])
-  
    
     const navigate=useNavigate();
   const handleLogout=()=>{
@@ -41,7 +44,12 @@ function Navbar(props) {
                {! localStorage.getItem('auth-token')?<form className="d-flex"> 
                     <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
                     <Link className="btn btn-primary mx-1" to="/signup" role="button">Signup</Link>
-                    </form>:<button onClick={handleLogout} className='btn btn-primary'>Logout</button>}
+                    
+                    </form>:
+                     <form>
+                     <button onClick={handleLogout} className='btn btn-primary'>Logout</button>
+                   </form>
+                    }
 
     </div>
   
